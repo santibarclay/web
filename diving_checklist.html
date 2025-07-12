@@ -552,72 +552,228 @@
                     <div class="checklist-header">
                         <input type="checkbox" id="pool1">
                         <label for="pool1">Ensamble y revisión del equipo (BCD, regulador, tanque)</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Procedimiento de ensamble:</h4>
+                        <p>Aprende a conectar y revisar todo el equipo de buceo:</p>
+                        <ul>
+                            <li>Conectar el regulador al tanque</li>
+                            <li>Revisar presión del tanque (debe estar lleno)</li>
+                            <li>Conectar mangueras del BCD</li>
+                            <li>Probar funcionamiento de botones de inflado/deflado</li>
+                            <li>Revisar que no haya fugas de aire</li>
+                        </ul>
+                        <p><strong>Importante:</strong> Nunca uses equipo que no funcione correctamente.</p>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
                         <input type="checkbox" id="pool2">
                         <label for="pool2">Entrada al agua y ajuste de equipo</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Técnica de entrada:</h4>
+                        <p>Práctica de diferentes formas de entrar al agua:</p>
+                        <ul>
+                            <li>Entrada por escalera (la más común)</li>
+                            <li>Entrada de espaldas desde el borde</li>
+                            <li>Ajuste de máscara bajo el agua</li>
+                            <li>Verificación de que todo el equipo esté bien puesto</li>
+                            <li>Inflado del BCD en superficie</li>
+                        </ul>
+                        <p><strong>Tip:</strong> Siempre infla tu BCD al entrar al agua para flotar cómodamente.</p>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
                         <input type="checkbox" id="pool3">
                         <label for="pool3">Respiración con regulador en superficie</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Adaptación a la respiración subacuática:</h4>
+                        <p>Práctica de respiración correcta antes de sumergirse:</p>
+                        <ul>
+                            <li>Respiración lenta y profunda</li>
+                            <li>Familiarización con el sonido del regulador</li>
+                            <li>Práctica de exhalación completa</li>
+                            <li>Relajación y control de la respiración</li>
+                            <li>Respiración continua, nunca contener</li>
+                        </ul>
+                        <p><strong>Objetivo:</strong> Sentirte cómodo respirando a través del regulador.</p>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
                         <input type="checkbox" id="pool4">
                         <label for="pool4">Compensación de oídos: Práctica en aguas poco profundas</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Práctica de compensación:</h4>
+                        <p>Ejercicio en aguas poco profundas para dominar la técnica:</p>
+                        <ul>
+                            <li>Descender solo 1-2 metros inicialmente</li>
+                            <li>Practicar Valsalva cada medio metro</li>
+                            <li>Identificar la sensación de presión antes del dolor</li>
+                            <li>Subir si no puedes compensar</li>
+                            <li>Repetir hasta que sea automático</li>
+                        </ul>
+                        <p><strong>Meta:</strong> Compensar sin pensar, como parte natural del descenso.</p>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
                         <input type="checkbox" id="pool5">
                         <label for="pool5">Descenso controlado: Técnica de deflado del BCD</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Técnica de descenso:</h4>
+                        <p>Aprende a bajar de forma controlada y segura:</p>
+                        <ul>
+                            <li>Deflado gradual del BCD</li>
+                            <li>Descenso lento y controlado</li>
+                            <li>Compensación continua de oídos</li>
+                            <li>Control de la velocidad de descenso</li>
+                            <li>Parar el descenso cuando sea necesario</li>
+                        </ul>
+                        <p><strong>Importante:</strong> Nunca fuerces el descenso si no puedes compensar.</p>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
                         <input type="checkbox" id="pool6">
                         <label for="pool6">Neutralidad: Flotar sin tocar el fondo</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Lograr flotabilidad neutra:</h4>
+                        <p>El skill más importante del buceo recreativo:</p>
+                        <ul>
+                            <li>Ajuste fino con pequeñas cantidades de aire</li>
+                            <li>Uso de la respiración para control fino</li>
+                            <li>Posición horizontal en el agua</li>
+                            <li>Flotar sin esfuerzo a profundidad constante</li>
+                            <li>No tocar el fondo ni subir involuntariamente</li>
+                        </ul>
+                        <p><strong>Objetivo:</strong> Mantener profundidad constante solo con la respiración.</p>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
                         <input type="checkbox" id="pool7">
                         <label for="pool7">Práctica de señales bajo el agua</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Comunicación subacuática:</h4>
+                        <p>Practica las señales básicas con tu compañero:</p>
+                        <ul>
+                            <li>OK - hacer y responder la señal</li>
+                            <li>Problema - señal de emergencia</li>
+                            <li>Subir/Bajar - direcciones de movimiento</li>
+                            <li>Aire - señales relacionadas con el aire</li>
+                            <li>Confirmación - asegurar que el mensaje se entendió</li>
+                        </ul>
+                        <p><strong>Meta:</strong> Comunicación clara y rápida bajo el agua.</p>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
                         <input type="checkbox" id="pool8">
                         <label for="pool8">Recuperación del regulador: Técnica de barrido</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Técnica de barrido del regulador:</h4>
+                        <p>Qué hacer si se sale el regulador de la boca:</p>
+                        <ul>
+                            <li>Mantén la calma, no entres en pánico</li>
+                            <li>Exhala pequeñas burbujas mientras buscas</li>
+                            <li>Barrido con brazo derecho desde atrás hacia adelante</li>
+                            <li>Agarra la manguera y sigue hasta encontrar la boquilla</li>
+                            <li>Sopla fuerte para limpiar antes de respirar</li>
+                        </ul>
+                        <p><strong>Practica:</strong> Repetir hasta que sea automático y sin pánico.</p>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
                         <input type="checkbox" id="pool9">
                         <label for="pool9">Vaciado de máscara: Técnica básica</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Cómo vaciar agua de la máscara:</h4>
+                        <p>Técnica esencial para el buceo seguro:</p>
+                        <ul>
+                            <li>Presiona la parte superior de la máscara</li>
+                            <li>Inclina ligeramente la cabeza hacia atrás</li>
+                            <li>Sopla aire por la nariz de forma constante</li>
+                            <li>El agua sale por la parte inferior</li>
+                            <li>Repite si es necesario hasta vaciarla completamente</li>
+                        </ul>
+                        <p><strong>Importante:</strong> Practica hasta que puedas hacerlo sin abrir los ojos.</p>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
                         <input type="checkbox" id="pool10">
                         <label for="pool10">Ascenso controlado: Inflado gradual del BCD</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Técnica de ascenso seguro:</h4>
+                        <p>Subir de forma controlada y segura:</p>
+                        <ul>
+                            <li>Inflado muy gradual del BCD</li>
+                            <li>Controlar velocidad de ascenso</li>
+                            <li>Nunca más rápido que las burbujas pequeñas</li>
+                            <li>Respiración continua y normal</li>
+                            <li>Mirar hacia arriba constantemente</li>
+                        </ul>
+                        <p><strong>Regla:</strong> Ascenso lento y controlado siempre.</p>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
                         <input type="checkbox" id="pool11">
                         <label for="pool11">Respiración de emergencia: Compartir aire con compañero</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Técnica de buddy breathing:</h4>
+                        <p>Procedimiento para compartir aire en emergencia:</p>
+                        <ul>
+                            <li>Señal de "sin aire" al compañero</li>
+                            <li>Acercarse y tomar el regulador alternativo (octopus)</li>
+                            <li>Mantener contacto físico con el compañero</li>
+                            <li>Ascender juntos lentamente</li>
+                            <li>Comunicación continua durante el ascenso</li>
+                        </ul>
+                        <p><strong>Vital:</strong> Practiquen esta técnica hasta dominarla completamente.</p>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
                         <input type="checkbox" id="pool12">
                         <label for="pool12">Simulacro de emergencia: Ascenso de emergencia</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Ascenso de emergencia controlado:</h4>
+                        <p>Último recurso cuando no hay otra opción:</p>
+                        <ul>
+                            <li>Mantener la calma absoluta</li>
+                            <li>Exhalar continuamente diciendo "Ahhhh"</li>
+                            <li>NUNCA contener la respiración</li>
+                            <li>Subir lento pero constante</li>
+                            <li>Buscar asistencia en superficie inmediatamente</li>
+                        </ul>
+                        <p><strong>Recordar:</strong> Esta es una práctica de último recurso solamente.</p>
                     </div>
                 </div>
             </div>
@@ -640,12 +796,6 @@
                 </div>
                 <div class="checklist-item">
                     <div class="checklist-header">
-                        <input type="checkbox" id="galapagos2">
-                        <label for="galapagos2">Corrientes: Técnicas para bucear en corriente (agarrarse a rocas)</label>
-                    </div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checklist-header">
                         <input type="checkbox" id="galapagos3">
                         <label for="galapagos3">Vida marina: Tiburones martillo, tortugas, iguanas marinas</label>
                     </div>
@@ -660,55 +810,6 @@
                     <div class="checklist-header">
                         <input type="checkbox" id="galapagos5">
                         <label for="galapagos5">Planificación de inmersión: Sitios recomendados para principiantes</label>
-                    </div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checklist-header">
-                        <input type="checkbox" id="galapagos6">
-                        <label for="galapagos6">Seguridad: Procedimientos específicos para aguas abiertas</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>✅ CHECKLIST FINAL ANTES DEL BUCEO</h2>
-            
-            <div class="checklist">
-                <div class="checklist-item">
-                    <div class="checklist-header">
-                        <input type="checkbox" id="final1">
-                        <label for="final1">Revisión médica: Confirmar que todos se sienten bien</label>
-                    </div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checklist-header">
-                        <input type="checkbox" id="final2">
-                        <label for="final2">Equipo completo: Máscara, aletas, snorkel, traje, BCD, regulador</label>
-                    </div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checklist-header">
-                        <input type="checkbox" id="final3">
-                        <label for="final3">Briefing con el guía: Plan de inmersión y procedimientos</label>
-                    </div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checklist-header">
-                        <input type="checkbox" id="final4">
-                        <label for="final4">Asignación de compañeros: Sistema de buddy establecido</label>
-                    </div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checklist-header">
-                        <input type="checkbox" id="final5">
-                        <label for="final5">Revisión de señales: Repaso rápido con el grupo</label>
-                    </div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checklist-header">
-                        <input type="checkbox" id="final6">
-                        <label for="final6">Comunicación de emergencia: Procedimientos claros</label>
                     </div>
                 </div>
             </div>
