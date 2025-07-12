@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist de Buceo - Galápagos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0077be, #00a8cc, #40e0d0);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #0077be, #00a8cc);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 119, 190, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .section {
+            margin: 30px 0;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #0077be;
+        }
+
+        .section h2 {
+            color: #0077be;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .checklist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .checklist-item {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            background: #e3f2fd;
+            border-color: #0077be;
+            transform: translateX(5px);
+        }
+
+        .checklist-item.completed {
+            background: #e8f5e8;
+            border-color: #4caf50;
+        }
+
+        .checklist-item.expanded {
+            background: #fff3cd;
+            border-color: #ffc107;
+            transform: scale(1.02);
+        }
+
+        .checklist-header {
+            display: flex;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+
+        .checklist-item label {
+            flex: 1;
+            cursor: pointer;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .expand-btn {
+            background: #0077be;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .expand-btn:hover {
+            background: #005a8b;
+            transform: scale(1.1);
+        }
+
+        .expand-btn.expanded {
+            transform: rotate(180deg);
+        }
+
+        .checklist-details {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border-left: 4px solid #0077be;
+            display: none;
+        }
+
+        .checklist-details.visible {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .checklist-details h4 {
+            color: #0077be;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .checklist-details p {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .checklist-details ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .checklist-details li {
+            margin-bottom: 5px;
+        }
+
+        .signals-section .checklist-item {
+            cursor: default;
+        }
+
+        .signals-section .expand-btn {
+            display: none;
+        }
+
+        .important {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .important h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .signals-section {
+            background: #f0f8ff;
+            border: 3px solid #0077be;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .signals-reference {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #0077be;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .checklist {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐠 Checklist de Buceo - Galápagos 🐢</h1>
+            <p>Preparación completa para tu aventura submarina</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-text" id="progress-text">Progreso: 0% completado</div>
+
+        <div class="section">
+            <h2>🎯 TEORÍA BÁSICA DE BUCEO</h2>
+            
+            <div class="important">
+                <h4>⚠️ REGLAS DE ORO DEL BUCEO</h4>
+                <p><strong>1. NUNCA contengas la respiración</strong> - Respira siempre de forma continua<br>
+                <strong>2. Asciende LENTAMENTE</strong> - Máximo 18 metros por minuto<br>
+                <strong>3. Mantente con tu compañero</strong> - Nunca bucees solo</p>
+            </div>
+
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="theory1">
+                        <label for="theory1">Efectos de la presión: Ley de Boyle y espacios aéreos del cuerpo</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Detalles de la Ley de Boyle:</h4>
+                        <p>A medida que desciendes, la presión aumenta y el volumen de los espacios aéreos disminuye.</p>
+                        <ul>
+                            <li>Cada 10 metros de profundidad = 1 atmósfera adicional</li>
+                            <li>Espacios aéreos afectados: oídos, senos paranasales, pulmones, máscara</li>
+                            <li>Síntomas de barotrauma: dolor de oídos, dolor de cabeza, máscara apretada</li>
+                        </ul>
+                        <p><strong>Clave:</strong> Compensar frecuentemente y nunca forzar el descenso.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="theory2">
+                        <label for="theory2">Técnicas de respiración: Respiración lenta, profunda y relajada</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Técnica de respiración correcta:</h4>
+                        <p>La respiración bajo el agua debe ser diferente a la respiración en superficie.</p>
+                        <ul>
+                            <li>Inhala lenta y profundamente</li>
+                            <li>Exhala completamente, más tiempo que en superficie</li>
+                            <li>Mantén un ritmo constante y relajado</li>
+                            <li>NUNCA contengas la respiración</li>
+                        </ul>
+                        <p><strong>Beneficios:</strong> Mejor consumo de aire, mayor relajación, mejor flotabilidad.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="theory3">
+                        <label for="theory3">Compensación de oídos: Técnica de Valsalva paso a paso</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Técnica de Valsalva paso a paso:</h4>
+                        <p>Procedimiento para igualar la presión en los oídos:</p>
+                        <ul>
+                            <li>Cierra la boca y tapa la nariz con los dedos</li>
+                            <li>Sopla suavemente por la nariz (como si te sonaras)</li>
+                            <li>Deberías escuchar un "pop" en los oídos</li>
+                            <li>Compensa ANTES de sentir molestias</li>
+                            <li>Compensa cada 1-2 metros en el descenso</li>
+                        </ul>
+                        <p><strong>¡Importante!</strong> Si no puedes compensar, asciende un poco y vuelve a intentar.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="theory4">
+                        <label for="theory4">Control de flotabilidad: Uso del chaleco BCD</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Manejo del BCD (Chaleco):</h4>
+                        <p>El BCD controla tu flotabilidad bajo el agua.</p>
+                        <ul>
+                            <li><strong>Botón de inflado:</strong> Añade aire para subir</li>
+                            <li><strong>Botón de deflado:</strong> Suelta aire para bajar</li>
+                            <li><strong>Neutralidad:</strong> Flotar sin esfuerzo a profundidad media</li>
+                            <li>Usa pulsaciones cortas, no mantengas presionado</li>
+                            <li>Ajusta respiración para control fino</li>
+                        </ul>
+                        <p><strong>Objetivo:</strong> Mantener profundidad constante sin esfuerzo.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="theory5">
+                        <label for="theory5">Procedimientos de ascenso: Parada de seguridad a 5 metros</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Ascenso seguro paso a paso:</h4>
+                        <p>El ascenso es la parte más crítica del buceo.</p>
+                        <ul>
+                            <li>Velocidad máxima: 18 metros por minuto</li>
+                            <li>Mira constantemente hacia arriba</li>
+                            <li>Suelta aire del BCD gradualmente</li>
+                            <li><strong>Parada de seguridad:</strong> 3 minutos a 5 metros</li>
+                            <li>Mantén la respiración normal durante todo el ascenso</li>
+                        </ul>
+                        <p><strong>Regla de oro:</strong> Nunca subir más rápido que tus burbujas más pequeñas.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="theory6">
+                        <label for="theory6">Señales básicas de buceo (ver imagen de referencia)</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Importancia de las señales:</h4>
+                        <p>La comunicación bajo el agua es vital para la seguridad.</p>
+                        <ul>
+                            <li>Practica las señales hasta que sean automáticas</li>
+                            <li>Mantén contacto visual con tu compañero</li>
+                            <li>Señales claras y visibles</li>
+                            <li>Confirma que el mensaje fue entendido</li>
+                        </ul>
+                        <p><strong>Recuerda:</strong> Cuando tengas dudas, haz la señal de "problema" y asciende.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="theory7">
+                        <label for="theory7">Planificación de inmersión: Tiempo límite sin descompresión</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Límites de tiempo sin descompresión:</h4>
+                        <p>Tiempos máximos seguros para buceo recreativo:</p>
+                        <ul>
+                            <li>18 metros: 56 minutos</li>
+                            <li>21 metros: 29 minutos</li>
+                            <li>24 metros: 20 minutos</li>
+                            <li>27 metros: 15 minutos</li>
+                            <li>30 metros: 11 minutos</li>
+                        </ul>
+                        <p><strong>Consejo:</strong> Siempre planifica un margen de seguridad y controla tu computadora de buceo.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="theory8">
+                        <label for="theory8">Procedimientos de emergencia: Ascenso de emergencia</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Ascenso de emergencia controlado:</h4>
+                        <p>Procedimiento cuando se queda sin aire:</p>
+                        <ul>
+                            <li>Mantén la calma - no entres en pánico</li>
+                            <li>Haz señal de "sin aire" a tu compañero</li>
+                            <li>Comparte aire con tu compañero si es posible</li>
+                            <li>Si debes ascender solo: exhala continuamente</li>
+                            <li>Di "Ahhhh" durante todo el ascenso</li>
+                        </ul>
+                        <p><strong>Clave:</strong> NUNCA contengas la respiración durante un ascenso de emergencia.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="theory9">
+                        <label for="theory9">Vida marina de Galápagos: Especies que veremos</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Vida marina única de Galápagos:</h4>
+                        <p>Especies que probablemente encontrarás:</p>
+                        <ul>
+                            <li><strong>Tiburones martillo:</strong> Grupos grandes, especialmente en Wolf y Darwin</li>
+                            <li><strong>Tortugas marinas:</strong> Tortuga verde y carey</li>
+                            <li><strong>Iguanas marinas:</strong> Únicas en el mundo, se alimentan de algas</li>
+                            <li><strong>Leones marinos:</strong> Juguetones y curiosos</li>
+                            <li><strong>Rayas:</strong> Manta rayas y rayas doradas</li>
+                        </ul>
+                        <p><strong>Regla:</strong> Observa pero no toques. Mantén distancia respetuosa.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="theory10">
+                        <label for="theory10">Corrientes marinas: Técnicas para bucear en corriente</label>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="checklist-details">
+                        <h4>Técnicas para corrientes fuertes:</h4>
+                        <p>Galápagos tiene corrientes intensas que requieren técnicas especiales:</p>
+                        <ul>
+                            <li><strong>Entrada:</strong> Salta rápido del bote, desciende inmediatamente</li>
+                            <li><strong>Posición:</strong> Busca refugio detrás de rocas grandes</li>
+                            <li><strong>Agarrarse:</strong> Usa gancho de arrecife o agárrate a rocas</li>
+                            <li><strong>Comunicación:</strong> Mantén contacto visual constante</li>
+                            <li><strong>Salida:</strong> Sube en grupo, globo de seguridad</li>
+                        </ul>
+                        <p><strong>Importante:</strong> Si te lleva la corriente, mantén la calma y asciende.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="signals-section">
+            <h2>🤟 SEÑALES DE BUCEO</h2>
+            <div class="signals-reference">
+                <h3>Referencia de Señales</h3>
+                <p><strong>Imagen de referencia:</strong> <a href="https://topbuceo.net/wp-content/uploads/2021/01/senales-buceo-1.jpg" target="_blank">Señales de Buceo</a></p>
+                <p>Estudia cada señal de la imagen y practica con tu compañero</p>
+            </div>
+            
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="signal1">
+                        <label for="signal1">OK - Pulgar e índice en círculo</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="signal2">
+                        <label for="signal2">Problema - Mano extendida balanceándose</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="signal3">
+                        <label for="signal3">Subir - Pulgar hacia arriba</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="signal4">
+                        <label for="signal4">Bajar - Pulgar hacia abajo</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="signal5">
+                        <label for="signal5">Para/Alto - Mano extendida hacia adelante</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="signal6">
+                        <label for="signal6">Mírame - Dos dedos apuntando a los ojos</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="signal7">
+                        <label for="signal7">Poco aire - Puño subiendo y bajando por el pecho</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="signal8">
+                        <label for="signal8">Sin aire - Mano plana en la garganta</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🏊 PRÁCTICA EN PILETA</h2>
+            
+            <div class="important">
+                <h4>🎯 OBJETIVO</h4>
+                <p>Practicar habilidades básicas en aguas confinadas antes del buceo en mar abierto</p>
+            </div>
+
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool1">
+                        <label for="pool1">Ensamble y revisión del equipo (BCD, regulador, tanque)</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool2">
+                        <label for="pool2">Entrada al agua y ajuste de equipo</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool3">
+                        <label for="pool3">Respiración con regulador en superficie</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool4">
+                        <label for="pool4">Compensación de oídos: Práctica en aguas poco profundas</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool5">
+                        <label for="pool5">Descenso controlado: Técnica de deflado del BCD</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool6">
+                        <label for="pool6">Neutralidad: Flotar sin tocar el fondo</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool7">
+                        <label for="pool7">Práctica de señales bajo el agua</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool8">
+                        <label for="pool8">Recuperación del regulador: Técnica de barrido</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool9">
+                        <label for="pool9">Vaciado de máscara: Técnica básica</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool10">
+                        <label for="pool10">Ascenso controlado: Inflado gradual del BCD</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool11">
+                        <label for="pool11">Respiración de emergencia: Compartir aire con compañero</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="pool12">
+                        <label for="pool12">Simulacro de emergencia: Ascenso de emergencia</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🌊 PREPARACIÓN ESPECÍFICA PARA GALÁPAGOS</h2>
+            
+            <div class="important">
+                <h4>🐢 CARACTERÍSTICAS ÚNICAS</h4>
+                <p>Galápagos tiene condiciones especiales: aguas frías, corrientes fuertes y vida marina única</p>
+            </div>
+
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="galapagos1">
+                        <label for="galapagos1">Temperatura del agua: 18-24°C, necesidad de traje de neopreno</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="galapagos2">
+                        <label for="galapagos2">Corrientes: Técnicas para bucear en corriente (agarrarse a rocas)</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="galapagos3">
+                        <label for="galapagos3">Vida marina: Tiburones martillo, tortugas, iguanas marinas</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="galapagos4">
+                        <label for="galapagos4">Protocolos de conservación: No tocar la vida marina</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="galapagos5">
+                        <label for="galapagos5">Planificación de inmersión: Sitios recomendados para principiantes</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="galapagos6">
+                        <label for="galapagos6">Seguridad: Procedimientos específicos para aguas abiertas</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>✅ CHECKLIST FINAL ANTES DEL BUCEO</h2>
+            
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="final1">
+                        <label for="final1">Revisión médica: Confirmar que todos se sienten bien</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="final2">
+                        <label for="final2">Equipo completo: Máscara, aletas, snorkel, traje, BCD, regulador</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="final3">
+                        <label for="final3">Briefing con el guía: Plan de inmersión y procedimientos</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="final4">
+                        <label for="final4">Asignación de compañeros: Sistema de buddy establecido</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="final5">
+                        <label for="final5">Revisión de señales: Repaso rápido con el grupo</label>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="final6">
+                        <label for="final6">Comunicación de emergencia: Procedimientos claros</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle details functionality
+        function toggleDetails(button) {
+            const item = button.closest('.checklist-item');
+            const details = item.querySelector('.checklist-details');
+            
+            if (details.classList.contains('visible')) {
+                details.classList.remove('visible');
+                button.classList.remove('expanded');
+                item.classList.remove('expanded');
+            } else {
+                details.classList.add('visible');
+                button.classList.add('expanded');
+                item.classList.add('expande
