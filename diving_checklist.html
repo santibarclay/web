@@ -728,4 +728,37 @@
             } else {
                 details.classList.add('visible');
                 button.classList.add('expanded');
-                item.classList.add('expande
+                item.classList.add('expanded');
+            }
+        }
+
+        // Progress tracking
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const totalCheckboxes = checkboxes.length;
+            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            
+            const percentage = Math.round((checkedBoxes / totalCheckboxes) * 100);
+            
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = `Progreso: ${percentage}% completado (${checkedBoxes}/${totalCheckboxes})`;
+        }
+
+        // Add event listeners to checkboxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const item = this.closest('.checklist-item');
+                    if (this.checked) {
+                        item.classList.add('completed');
+                    } else {
+                        item.classList.remove('completed');
+                    }
+                    updateProgress();
+                });
+            });
+            
+            // Initialize progress
+            updateProgress();
+        });
