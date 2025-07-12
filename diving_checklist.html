@@ -716,16 +716,16 @@
     </div>
 
     <script>
-        // Toggle details functionality
+        // Toggle details functionality - debe estar disponible globalmente
         function toggleDetails(button) {
             const item = button.closest('.checklist-item');
             const details = item.querySelector('.checklist-details');
             
-            if (details.classList.contains('visible')) {
+            if (details && details.classList.contains('visible')) {
                 details.classList.remove('visible');
                 button.classList.remove('expanded');
                 item.classList.remove('expanded');
-            } else {
+            } else if (details) {
                 details.classList.add('visible');
                 button.classList.add('expanded');
                 item.classList.add('expanded');
@@ -740,12 +740,20 @@
             
             const percentage = Math.round((checkedBoxes / totalCheckboxes) * 100);
             
-            document.getElementById('progress-fill').style.width = percentage + '%';
-            document.getElementById('progress-text').textContent = `Progreso: ${percentage}% completado (${checkedBoxes}/${totalCheckboxes})`;
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            
+            if (progressFill) {
+                progressFill.style.width = percentage + '%';
+            }
+            if (progressText) {
+                progressText.textContent = `Progreso: ${percentage}% completado (${checkedBoxes}/${totalCheckboxes})`;
+            }
         }
 
-        // Add event listeners to checkboxes
+        // Initialize when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners to checkboxes
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', function() {
@@ -762,3 +770,4 @@
             // Initialize progress
             updateProgress();
         });
+    </script>
